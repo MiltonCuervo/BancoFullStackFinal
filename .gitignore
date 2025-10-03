@@ -1,0 +1,39 @@
+# ==================================
+# Reglas para el Backend (Java/Maven)
+# ==================================
+# Archivos compilados por Maven
+/banco-backend/target/
+
+# Archivos del Maven Wrapper (si decides no subirlos)
+# /banco-backend/.mvn/
+# /banco-backend/mvnw
+# /banco-backend/mvnw.cmd
+
+# Archivos de log
+*.log
+
+# Archivos de IDEs
+.idea/
+*.iml
+*.iws
+
+
+# ==================================
+# Reglas para el Frontend (Node/React)
+# ==================================
+# La carpeta de dependencias, la más importante a ignorar
+/banco-frontend/node_modules/
+
+# Archivos de compilación para producción
+/banco-frontend/build/
+
+# Logs de npm y yarn
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Archivos de entorno (contienen secretos)
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
