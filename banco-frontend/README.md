@@ -31,7 +31,7 @@ Este es un monorepo que contiene tanto el backend como el frontend en un solo lu
 └── .gitignore          <-- Reglas para ignorar archivos (node_modules, target, etc.)
 └── README.md          
 
-## 🛠️ Tecnologías Utilizadas
+## Tecnologías Utilizadas
 
 ### Backend (`banco-backend`)
 * **Lenguaje:** Java 21
