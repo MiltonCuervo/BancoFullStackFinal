@@ -1,70 +1,95 @@
-# Getting Started with Create React App
+# Laboratorio 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Este repositorio contiene el código fuente de una aplicación bancaria, desarrollada como parte del Laboratorio Nro. 1 de la materia Arquitectura de Software. La aplicación permite gestionar clientes, realizar transferencias de dinero entre cuentas y consultar historiales de transacciones.
 
-## Available Scripts
+## Características Implementadas
 
-In the project directory, you can run:
+La aplicación cuenta con un ciclo completo de funcionalidades CRUD (Crear, Leer, Actualizar, Borrar) para la gestión de clientes, además de las operaciones de transacciones.
 
-### `npm start`
+* **Gestión de Clientes:**
+    * Visualización de todos los clientes registrados.
+    * Creación de nuevos clientes con un saldo inicial.
+    * **Actualización** de la información de los clientes (nombre y apellido).
+    * **Eliminación** de clientes con diálogo de confirmación.
+* **Transacciones:**
+    * Realización de transferencias de dinero entre dos cuentas existentes.
+    * Validación de saldo suficiente en la cuenta de origen.
+* **Historial:**
+    * Consulta del historial completo de transacciones (enviadas y recibidas) para un número de cuenta específico.
+* **Frontend Moderno:**
+    * Interfaz de usuario limpia y profesional construida con React.
+    * Navegación fluida entre vistas sin recargar la página (Single Page Application).
+    * Diseño responsivo con menú desplegable para una correcta visualización en dispositivos móviles.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Estructura del Proyecto
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Este es un monorepo que contiene tanto el backend como el frontend en un solo lugar.
 
-### `npm test`
+/
+├── banco-frontend/     <-- Aplicación Cliente (React)
+├── lab12025p/          <-- Servidor Backend (Spring Boot)
+└── .gitignore          <-- Reglas para ignorar archivos (node_modules, target, etc.)
+└── README.md          
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🛠️ Tecnologías Utilizadas
 
-### `npm run build`
+### Backend (`banco-backend`)
+* **Lenguaje:** Java 21
+* **Framework:** Spring Boot
+* **Base de Datos:** MySQL
+* **Gestión de Dependencias:** Maven
+* **Librerías Clave:** Spring Web, Spring Data JPA, Lombok.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Frontend (`banco-frontend`)
+* **Librería:** React JS
+* **Gestor de Paquetes:** npm
+* **Librerías Clave:** `axios` (peticiones HTTP), `react-router-dom` (navegación), `react-icons` (iconografía).
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Guía de Instalación y Ejecución
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Para ejecutar este proyecto en tu máquina local, sigue los siguientes pasos.
 
-### `npm run eject`
+### Prerrequisitos
+* Java JDK 17 o superior.
+* Maven 3.5 o superior.
+* Node.js (que incluye npm).
+* Un servidor de base de datos MySQL en funcionamiento.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### 1. Clonar el Repositorio
+```bash
+git clone https://github.com/MiltonCuervo/BancoFullStackFinal.git
+cd BancoFullStack
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 2. Configurar el Backend
+1.  **Crear la Base de Datos:** Abre tu cliente de MySQL y ejecuta el siguiente comando:
+    ```sql
+    CREATE DATABASE lab12025p;
+    ```
+2.  **Configurar la Conexión:** Navega a la carpeta `banco-backend/src/main/resources/` y abre el archivo `application.properties`. Asegúrate de que las credenciales (`spring.datasource.username` y `spring.datasource.password`) coincidan con tu configuración local de MySQL.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+3.  **Ejecutar el Servidor Backend:** Abre una **primera terminal** en la carpeta raíz del proyecto y ejecuta:
+    ```bash
+    # Navega a la carpeta del backend
+    cd banco-backend
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+    # Ejecuta el servidor (usa mvnw.cmd en Windows cmd)
+    ./mvnw spring-boot:run
+    ```
+    El servidor backend se iniciará en `http://localhost:8080`.
 
-## Learn More
+### 3. Configurar el Frontend
+1.  **Instalar Dependencias:** Abre una **segunda terminal** en la carpeta raíz del proyecto y ejecuta:
+    ```bash
+    # Navega a la carpeta del frontend
+    cd banco-frontend
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+    # Instala todas las librerías necesarias
+    npm install
+    ```
+2.  **Ejecutar la Aplicación Frontend:** En la misma terminal del frontend, ejecuta:
+    ```bash
+    npm start
+    ```
+    La aplicación se abrirá automáticamente en tu navegador en `http://localhost:3000`.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
