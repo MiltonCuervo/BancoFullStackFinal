@@ -28,11 +28,6 @@ La aplicación cuenta con un ciclo completo de funcionalidades CRUD (Crear, Leer
 
 Este es un monorepo que contiene tanto el backend como el frontend en un solo lugar.
 
-/
-├── banco-backend/      <-- Servidor Backend (Spring Boot)
-├── banco-frontend/     <-- Aplicación Cliente (React)
-└── .gitignore          <-- Reglas para ignorar archivos (node_modules, target, etc.)
-└── README.md           <-- Esta documentación
 
 ## Tecnologías Utilizadas
 
