@@ -1,6 +1,6 @@
 
 
-```markdown
+
 # Laboratorio 1
 
 Este repositorio contiene el código fuente de una aplicación bancaria completa, desarrollada como parte del Laboratorio Nro. 1 de la materia Arquitectura de Software. La aplicación permite gestionar clientes, realizar transferencias de dinero entre cuentas y consultar historiales de transacciones.
@@ -62,7 +62,7 @@ Para ejecutar este proyecto en tu máquina local, sigue los siguientes pasos.
 ```bash
 git clone https://github.com/MiltonCuervo/BancoFullStackFinal.git
 cd BancoFullStackFinal
-```
+
 
 ### 2. Configurar el Backend
 1.  **Crear la Base de Datos:** Abre tu cliente de MySQL y ejecuta el siguiente comando:
