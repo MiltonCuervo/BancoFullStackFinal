@@ -1,6 +1,9 @@
-# Laboratorio 
 
-Este repositorio contiene el código fuente de una aplicación bancaria, desarrollada como parte del Laboratorio Nro. 1 de la materia Arquitectura de Software. La aplicación permite gestionar clientes, realizar transferencias de dinero entre cuentas y consultar historiales de transacciones.
+
+
+# Laboratorio 1
+
+Este repositorio contiene el código fuente de una aplicación bancaria completa, desarrollada como parte del Laboratorio Nro. 1 de la materia Arquitectura de Software. La aplicación permite gestionar clientes, realizar transferencias de dinero entre cuentas y consultar historiales de transacciones.
 
 ## Características Implementadas
 
@@ -25,11 +28,6 @@ La aplicación cuenta con un ciclo completo de funcionalidades CRUD (Crear, Leer
 
 Este es un monorepo que contiene tanto el backend como el frontend en un solo lugar.
 
-/
-├── banco-frontend/     <-- Aplicación Cliente (React)
-├── lab12025p/          <-- Servidor Backend (Spring Boot)
-└── .gitignore          <-- Reglas para ignorar archivos (node_modules, target, etc.)
-└── README.md          
 
 ## Tecnologías Utilizadas
 
@@ -58,20 +56,20 @@ Para ejecutar este proyecto en tu máquina local, sigue los siguientes pasos.
 ### 1. Clonar el Repositorio
 ```bash
 git clone https://github.com/MiltonCuervo/BancoFullStackFinal.git
-cd BancoFullStack
-```
+cd BancoFullStackFinal
+
 
 ### 2. Configurar el Backend
 1.  **Crear la Base de Datos:** Abre tu cliente de MySQL y ejecuta el siguiente comando:
     ```sql
-    CREATE DATABASE lab12025p;
+    CREATE DATABASE banco2025;
     ```
 2.  **Configurar la Conexión:** Navega a la carpeta `banco-backend/src/main/resources/` y abre el archivo `application.properties`. Asegúrate de que las credenciales (`spring.datasource.username` y `spring.datasource.password`) coincidan con tu configuración local de MySQL.
 
 3.  **Ejecutar el Servidor Backend:** Abre una **primera terminal** en la carpeta raíz del proyecto y ejecuta:
     ```bash
     # Navega a la carpeta del backend
-    cd banco-backend
+    cd lab12025p
 
     # Ejecuta el servidor (usa mvnw.cmd en Windows cmd)
     ./mvnw spring-boot:run
@@ -92,4 +90,3 @@ cd BancoFullStack
     npm start
     ```
     La aplicación se abrirá automáticamente en tu navegador en `http://localhost:3000`.
-
