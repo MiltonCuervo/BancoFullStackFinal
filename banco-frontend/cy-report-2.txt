@@ -1,0 +1,80 @@
+
+
+DevTools listening on ws://127.0.0.1:56114/devtools/browser/85c2ae59-0a19-4648-82f0-e37e1bd243ad
+Warning: The allowCypressEnv configuration option is enabled. This allows any browser code to read values from Cypress.env(). This is insecure and will be removed in a future major version.
+
+1. Replace Cypress.env() calls with cy.env() (for sensitive values) or Cypress.expose() (for public configuration)
+2. Set allowCypressEnv: false in your Cypress configuration to disable Cypress.env()
+
+Learn more: https://on.cypress.io/cypress-env-migration
+
+
+====================================================================================================
+
+  (Run Starting)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Cypress:        15.11.0                                                                        │
+  │ Browser:        Electron 138 (headless)                                                        │
+  │ Node Version:   v22.14.0 (C:\Program Files\nodejs\node.exe)                                    │
+  │ Specs:          1 found (bank_transactions.cy.js)                                              │
+  │ Searched:       D:\Documentos\CalidadSoftware\BancoFullStackFinal\banco-frontend\cypress\e2e\b │
+  │                 ank_transactions.cy.js                                                         │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+                                                                                                    
+  Running:  bank_transactions.cy.js                                                         (1 of 1)
+
+
+  Pruebas E2E del Banco - Robot de Interfaz
+    1) Caso E2E 1: Flujo Cero a Cien (Transferencia Exitosa)
+    √ Caso E2E 2: Llenado de formulario inválido (Validación React Native) (893ms)
+    √ Caso E2E 3: Manejo de errores visuales (Validación Backend) (1659ms)
+
+
+  2 passing (11s)
+  1 failing
+
+  1) Pruebas E2E del Banco - Robot de Interfaz
+       Caso E2E 1: Flujo Cero a Cien (Transferencia Exitosa):
+     AssertionError: Timed out retrying after 4000ms: Expected to find content: '¡Transferencia exitosa! ID de transacción:' but never did.
+      at Context.eval (webpack://banco-frontend/./cypress/e2e/bank_transactions.cy.js:25:66)
+
+
+
+
+  (Results)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Tests:        3                                                                                │
+  │ Passing:      2                                                                                │
+  │ Failing:      1                                                                                │
+  │ Pending:      0                                                                                │
+  │ Skipped:      0                                                                                │
+  │ Screenshots:  1                                                                                │
+  │ Video:        false                                                                            │
+  │ Duration:     10 seconds                                                                       │
+  │ Spec Ran:     bank_transactions.cy.js                                                          │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+  (Screenshots)
+
+  -  D:\Documentos\CalidadSoftware\BancoFullStackFinal\banco-frontend\cypress\screens     (1280x720)
+     hots\bank_transactions.cy.js\Pruebas E2E del Banco - Robot de Interfaz -- Caso E               
+     2E 1 Flujo Cero a Cien (Transferencia Exitosa) (failed).png                                    
+
+
+====================================================================================================
+
+  (Run Finished)
+
+
+       Spec                                              Tests  Passing  Failing  Pending  Skipped  
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ ×  bank_transactions.cy.js                  00:10        3        2        1        -        - │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+    ×  1 of 1 failed (100%)                     00:10        3        2        1        -        -  
+

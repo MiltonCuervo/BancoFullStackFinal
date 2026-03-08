@@ -29,6 +29,17 @@ public class TransactionService {
             throw new IllegalArgumentException("Los numeros de cuenta del remitente y receptor son obligatorios");
         }
 
+        // Validar que el monto sea mayor a cero
+        if (transactionDTO.getAmount() == null
+                || transactionDTO.getAmount().compareTo(java.math.BigDecimal.ZERO) <= 0) {
+            throw new IllegalArgumentException("El monto a transferir debe ser mayor a cero");
+        }
+
+        // Validar autotransferencia
+        if (transactionDTO.getSenderAccountNumber().equals(transactionDTO.getReceiverAccountNumber())) {
+            throw new IllegalArgumentException("No puede transferir dinero a su propia cuenta");
+        }
+
         // Buscar los clientes por numero de cuenta con bloqueo
         Customer sender = customerRepository.findByAccountNumberForUpdate(transactionDTO.getSenderAccountNumber())
                 .orElseThrow(() -> new IllegalArgumentException("La cuenta del remitente no existe"));
