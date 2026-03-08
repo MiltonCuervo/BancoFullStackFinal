@@ -3,6 +3,7 @@ package com.udea.lab12025p.DTO;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.time.LocalDateTime;
+import java.math.BigDecimal;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class TransactionDTO {
@@ -10,13 +11,14 @@ public class TransactionDTO {
     private Long id;
     private String senderAccountNumber;
     private String receiverAccountNumber;
-    private Double amount;
+    private BigDecimal amount;
     private LocalDateTime transactionDate;
 
     public TransactionDTO() {
     }
 
-    public TransactionDTO(Long id, String senderAccountNumber, String receiverAccountNumber, Double amount, LocalDateTime transactionDate) {
+    public TransactionDTO(Long id, String senderAccountNumber, String receiverAccountNumber, BigDecimal amount,
+            LocalDateTime transactionDate) {
         this.id = id;
         this.senderAccountNumber = senderAccountNumber;
         this.receiverAccountNumber = receiverAccountNumber;
@@ -48,11 +50,11 @@ public class TransactionDTO {
         this.receiverAccountNumber = receiverAccountNumber;
     }
 
-    public Double getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(Double amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 

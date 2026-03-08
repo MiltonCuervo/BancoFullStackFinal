@@ -10,7 +10,7 @@ import HomePage from './components/HomePage';
 import CustomerList from './components/CustomerList';
 import TransactionForm from './components/TransactionForm';
 import TransactionHistory from './components/TransactionHistory';
-import CustomerEditForm from './components/CustomerEditForm'; // <-- Importa el nuevo formulario de edición
+import CustomerEditForm from './components/CustomerEditForm';
 
 function App() {
     // Estado para controlar si el menú responsive está abierto o cerrado
@@ -48,19 +48,10 @@ function App() {
                 <main>
                     {/* <Routes> define el área donde se renderizarán los componentes según la ruta */}
                     <Routes>
-                        {/* Ruta para la página de inicio */}
                         <Route path="/" element={<HomePage />} />
-
-                        {/* Ruta para la lista de clientes */}
                         <Route path="/clientes" element={<CustomerList />} />
-
-                        {/* Nueva ruta dinámica para editar un cliente específico por su ID */}
                         <Route path="/clientes/editar/:id" element={<CustomerEditForm />} />
-
-                        {/* Ruta para el formulario de transferencia */}
                         <Route path="/transferencia" element={<TransactionForm />} />
-
-                        {/* Ruta para el historial de transacciones */}
                         <Route path="/historial" element={<TransactionHistory />} />
                     </Routes>
                 </main>

@@ -14,7 +14,7 @@ const TransactionHistory = () => {
         setMessage('');
         setTransactions([]);
 
-        axios.get(`http://localhost:8080/api/transactions/${accountNumber}`)
+        axios.get(`${process.env.REACT_APP_API_URL}/transactions/${accountNumber}`)
             .then(response => {
                 if (response.data.length > 0) {
                     setTransactions(response.data);
@@ -48,24 +48,24 @@ const TransactionHistory = () => {
             {transactions.length > 0 && (
                 <table>
                     <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Cuenta Origen</th>
-                        <th>Cuenta Destino</th>
-                        <th>Monto</th>
-                        <th>Fecha</th>
-                    </tr>
+                        <tr>
+                            <th>ID</th>
+                            <th>Cuenta Origen</th>
+                            <th>Cuenta Destino</th>
+                            <th>Monto</th>
+                            <th>Fecha</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    {transactions.map(tx => (
-                        <tr key={tx.id}>
-                            <td>{tx.id}</td>
-                            <td>{tx.senderAccountNumber}</td>
-                            <td>{tx.receiverAccountNumber}</td>
-                            <td>${new Intl.NumberFormat('es-CO').format(tx.amount)}</td>
-                            <td>{new Date(tx.date).toLocaleString('es-CO')}</td>
-                        </tr>
-                    ))}
+                        {transactions.map(tx => (
+                            <tr key={tx.id}>
+                                <td>{tx.id}</td>
+                                <td>{tx.senderAccountNumber}</td>
+                                <td>{tx.receiverAccountNumber}</td>
+                                <td>${new Intl.NumberFormat('es-CO').format(tx.amount)}</td>
+                                <td>{new Date(tx.date).toLocaleString('es-CO')}</td>
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
             )}

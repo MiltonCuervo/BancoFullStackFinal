@@ -1,17 +1,19 @@
 package com.udea.lab12025p.DTO;
 
+import java.math.BigDecimal;
+
 public class CustomerDTO {
 
     private Long id;
     private String firstName;
     private String lastName;
     private String accountNumber;
-    private Double balance;
+    private BigDecimal balance;
 
     public CustomerDTO() {
     }
 
-    public CustomerDTO(Long id, String firstName, String lastName, String accountNumber, Double balance) {
+    public CustomerDTO(Long id, String firstName, String lastName, String accountNumber, BigDecimal balance) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -51,11 +53,11 @@ public class CustomerDTO {
         this.accountNumber = accountNumber;
     }
 
-    public Double getBalance() {
+    public BigDecimal getBalance() {
         return balance;
     }
 
-    public void setBalance(Double balance) {
+    public void setBalance(BigDecimal balance) {
         this.balance = balance;
     }
 }

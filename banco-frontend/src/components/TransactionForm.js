@@ -20,7 +20,7 @@ const TransactionForm = () => {
             amount: parseFloat(amount)
         };
 
-        axios.post('http://localhost:8080/api/transactions', transactionData)
+        axios.post(`${process.env.REACT_APP_API_URL}/transactions`, transactionData)
             .then(response => {
                 setMessage(`¡Transferencia exitosa! ID de transacción: ${response.data.id}`);
                 setSenderAccountNumber('');

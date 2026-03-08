@@ -3,6 +3,7 @@ package com.udea.lab12025p.entity;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "customers")
@@ -18,16 +19,17 @@ public class Customer {
     @Column(nullable = false, length = 50)
     private String lastName;
     @Column(nullable = false)
-    private Double balance;
+    private BigDecimal balance;
 
     public Customer() {
     }
+
     @JsonCreator
     public Customer(@JsonProperty("id") Long id,
-                    @JsonProperty("accountNumber") String accountNumber,
-                    @JsonProperty("firstName") String firstName,
-                    @JsonProperty("lastName") String lastName,
-                    @JsonProperty("balance") Double balance) {
+            @JsonProperty("accountNumber") String accountNumber,
+            @JsonProperty("firstName") String firstName,
+            @JsonProperty("lastName") String lastName,
+            @JsonProperty("balance") BigDecimal balance) {
         this.id = id;
         this.accountNumber = accountNumber;
         this.firstName = firstName;
@@ -67,11 +69,11 @@ public class Customer {
         this.lastName = lastName;
     }
 
-    public Double getBalance() {
+    public BigDecimal getBalance() {
         return balance;
     }
 
-    public void setBalance(Double balance) {
+    public void setBalance(BigDecimal balance) {
         this.balance = balance;
     }
 }

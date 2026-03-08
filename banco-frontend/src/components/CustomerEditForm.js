@@ -17,7 +17,8 @@ const CustomerEditForm = () => {
 
     // Este useEffect se ejecuta cuando el componente se carga para obtener los datos del cliente
     useEffect(() => {
-        axios.get(`http://localhost:8080/api/customers/${id}`)
+        // Petición para obtener los datos del cliente por su ID
+        axios.get(`${process.env.REACT_APP_API_URL}/customers/${id}`)
             .then(response => {
                 setFirstName(response.data.firstName);
                 setLastName(response.data.lastName);
@@ -32,7 +33,8 @@ const CustomerEditForm = () => {
         event.preventDefault();
         const updatedCustomer = { firstName, lastName };
 
-        axios.put(`http://localhost:8080/api/customers/${id}`, updatedCustomer)
+        // Petición PUT para actualizar los datos
+        axios.put(`${process.env.REACT_APP_API_URL}/customers/${id}`, updatedCustomer)
             .then(response => {
                 alert('¡Cliente actualizado exitosamente!');
                 // Redirigimos al usuario de vuelta a la lista de clientes

@@ -4,10 +4,11 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.math.BigDecimal;
 
 @Data
 @Entity
-@Table(name="transtactions")
+@Table(name = "transtactions")
 public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,9 +19,12 @@ public class Transaction {
     @Column(name = "receiver_account_number", nullable = false)
     private String receiverAccountNumber;
     @Column(nullable = false)
-    private Double amount;
-    //@Column(nullable = false)
-    //private LocalDateTime transactionDate;
+    private BigDecimal amount;
+    @Column(nullable = false)
+    private LocalDateTime transactionDate;
+
+    @PrePersist
+    protected void onCreate() {
+        this.transactionDate = LocalDateTime.now();
+    }
 }
-
-

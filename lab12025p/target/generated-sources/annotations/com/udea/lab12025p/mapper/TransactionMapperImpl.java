@@ -6,8 +6,8 @@ import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-10-02T21:53:22-0500",
-    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.4 (Oracle Corporation)"
+    date = "2026-03-07T12:04:19-0500",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.16 (Oracle Corporation)"
 )
 public class TransactionMapperImpl implements TransactionMapper {
 
@@ -23,6 +23,7 @@ public class TransactionMapperImpl implements TransactionMapper {
         transactionDTO.setSenderAccountNumber( transaction.getSenderAccountNumber() );
         transactionDTO.setReceiverAccountNumber( transaction.getReceiverAccountNumber() );
         transactionDTO.setAmount( transaction.getAmount() );
+        transactionDTO.setTransactionDate( transaction.getTransactionDate() );
 
         return transactionDTO;
     }

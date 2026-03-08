@@ -10,7 +10,8 @@ const CustomerList = () => {
 
     // Función para obtener los clientes
     const fetchCustomers = () => {
-        axios.get('http://localhost:8080/api/customers')
+        // Petición para obtener la lista de clientes
+        axios.get(`${process.env.REACT_APP_API_URL}/customers`)
             .then(response => {
                 setCustomers(response.data);
             })
@@ -26,8 +27,8 @@ const CustomerList = () => {
     // 2. Función para manejar el borrado
     const handleDelete = (customerId) => {
         // Pedimos confirmación al usuario
-        if (window.confirm('¿Estás seguro de que deseas borrar este cliente?')) {
-            axios.delete(`http://localhost:8080/api/customers/${customerId}`)
+        if (window.confirm("¿Estás seguro de que deseas eliminar este cliente?")) {
+            axios.delete(`${process.env.REACT_APP_API_URL}/customers/${customerId}`)
                 .then(response => {
                     alert('¡Cliente borrado exitosamente!');
                     // Actualizamos la lista de clientes para reflejar el cambio
@@ -45,35 +46,35 @@ const CustomerList = () => {
             <h2>Lista de Clientes</h2>
             <table>
                 <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>Número de Cuenta</th>
-                    <th>Saldo</th>
-                    <th>Acciones</th> {/* 3. Añade la columna de Acciones */}
-                </tr>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Número de Cuenta</th>
+                        <th>Saldo</th>
+                        <th>Acciones</th> {/* 3. Añade la columna de Acciones */}
+                    </tr>
                 </thead>
                 <tbody>
-                {customers.map(customer => (
-                    <tr key={customer.id}>
-                        <td>{customer.id}</td>
-                        <td>{customer.firstName}</td>
-                        <td>{customer.lastName}</td>
-                        <td>{customer.accountNumber}</td>
-                        <td>${new Intl.NumberFormat('es-CO').format(customer.balance)}</td>
-                        <td>
-                            {/* 4. Botón de Editar que lleva a una nueva página */}
-                            <Link to={`/clientes/editar/${customer.id}`} className="action-button edit">
-                                Editar
-                            </Link>
-                            {/* 5. Botón de Borrar que llama a nuestra función */}
-                            <button onClick={() => handleDelete(customer.id)} className="action-button delete">
-                                Borrar
-                            </button>
-                        </td>
-                    </tr>
-                ))}
+                    {customers.map(customer => (
+                        <tr key={customer.id}>
+                            <td>{customer.id}</td>
+                            <td>{customer.firstName}</td>
+                            <td>{customer.lastName}</td>
+                            <td>{customer.accountNumber}</td>
+                            <td>${new Intl.NumberFormat('es-CO').format(customer.balance)}</td>
+                            <td>
+                                {/* 4. Botón de Editar que lleva a una nueva página */}
+                                <Link to={`/clientes/editar/${customer.id}`} className="action-button edit">
+                                    Editar
+                                </Link>
+                                {/* 5. Botón de Borrar que llama a nuestra función */}
+                                <button onClick={() => handleDelete(customer.id)} className="action-button delete">
+                                    Borrar
+                                </button>
+                            </td>
+                        </tr>
+                    ))}
                 </tbody>
             </table>
         </div>
