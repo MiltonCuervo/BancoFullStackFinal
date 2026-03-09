@@ -1,5 +1,7 @@
 /banco-backend/target/
-
+/lab12025p/target/
+/banco-frontend/cypress/videos/
+/banco-frontend/cypress/screenshots/
 *.log
 
 
