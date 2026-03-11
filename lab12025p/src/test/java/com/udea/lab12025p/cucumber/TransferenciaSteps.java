@@ -2,11 +2,13 @@ package com.udea.lab12025p.cucumber;
 
 import com.udea.lab12025p.DTO.TransactionDTO;
 import com.udea.lab12025p.entity.Customer;
+import com.udea.lab12025p.repository.CustomerRepository;
 import com.udea.lab12025p.service.TransactionService;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.cucumber.java.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -21,18 +23,30 @@ public class TransferenciaSteps {
     @Autowired
     private TransactionService transactionService;
 
+    @Autowired
+    private CustomerRepository customerRepository;
+
     private Customer remitente;
     private Customer receptor;
     private TransactionDTO transaccionRequest;
     private TransactionDTO transaccionResultado;
     private Exception ex;
 
+    @Before
+    public void limpiarBase() {
+        customerRepository.deleteAll();
+    }
+
     @Given("que el cliente {string} tiene una cuenta {string} con saldo de {double}")
     public void registrarEstadoInicial(String nombre, String cuenta, double saldoInicial) {
-        // En un caso real crearíamos los clientes en la base de datos usando
-        // customerRepository
-        // Por la simplicidad de este UAT, confiaremos en los Customers que se han
-        // guardado desde el CommandLineRunner del Backend.
+        // Crear cliente en la base de datos para asegurar que exista
+        remitente = new Customer();
+        remitente.setAccountNumber(cuenta);
+        remitente.setFirstName(nombre);
+        remitente.setLastName("Apellido"); // o vacío
+        remitente.setBalance(BigDecimal.valueOf(saldoInicial));
+        // Aquí necesitas inyectar customerRepository para guardarlo
+        customerRepository.save(remitente);
     }
 
     @When("{string} transfiere {double} a la cuenta de {string}")
