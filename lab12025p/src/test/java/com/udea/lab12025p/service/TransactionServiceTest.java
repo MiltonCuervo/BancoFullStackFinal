@@ -112,7 +112,7 @@ public class TransactionServiceTest {
         verify(customerRepository, never()).save(any(Customer.class));
     }
 
-    // TEST 4B: Cuenta del receptor no existe
+    // TEST 5: Cuenta del receptor no existe
     @Test
     void testTransferMoney_ReceiverAccountNotFound() {
         when(customerRepository.findByAccountNumberForUpdate("1111"))
@@ -130,7 +130,7 @@ public class TransactionServiceTest {
         verify(customerRepository, never()).save(any(Customer.class));
     }
 
-    // TEST 5: Camino Feliz
+    // TEST 6: Camino Feliz
     @Test
     void testTransferMoney_SuccessPath() {
         when(customerRepository.findByAccountNumberForUpdate("1111")).thenReturn(Optional.of(sender));
