@@ -16,6 +16,8 @@ import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import java.util.HashMap;
+import java.util.Map;
 
 @SpringBootTest
 public class TransferenciaSteps {
@@ -26,8 +28,7 @@ public class TransferenciaSteps {
     @Autowired
     private CustomerRepository customerRepository;
 
-    private Customer remitente;
-    private Customer receptor;
+    private Map<String, Customer> clientes = new HashMap<>();
     private TransactionDTO transaccionRequest;
     private TransactionDTO transaccionResultado;
     private Exception ex;
@@ -39,25 +40,27 @@ public class TransferenciaSteps {
 
     @Given("que el cliente {string} tiene una cuenta {string} con saldo de {double}")
     public void registrarEstadoInicial(String nombre, String cuenta, double saldoInicial) {
-        // Crear cliente en la base de datos para asegurar que exista
-        remitente = new Customer();
-        remitente.setAccountNumber(cuenta);
-        remitente.setFirstName(nombre);
-        remitente.setLastName("Apellido"); // o vacío
-        remitente.setBalance(BigDecimal.valueOf(saldoInicial));
-        // Aquí necesitas inyectar customerRepository para guardarlo
-        customerRepository.save(remitente);
+
+        Customer cliente = new Customer();
+        cliente.setAccountNumber(cuenta);
+        cliente.setFirstName(nombre);
+        cliente.setLastName("Apellido");
+        cliente.setBalance(BigDecimal.valueOf(saldoInicial));
+
+        customerRepository.save(cliente);
+        clientes.put(nombre, cliente);
     }
 
     @When("{string} transfiere {double} a la cuenta de {string}")
     public void ejecutaTransferenciaExitosa(String cliente1, double monto, String cliente2) {
         try {
+            Customer remitente = clientes.get(cliente1);
+            Customer receptor = clientes.get(cliente2);
+
             transaccionRequest = new TransactionDTO();
-            // Basado en el backend properties, Pablo es 1111, y C2 es 2222.
-            // Para Homero(0001) y Ned(0002) creados en el Test de Integracion
-            transaccionRequest.setSenderAccountNumber("0001");
-            transaccionRequest.setReceiverAccountNumber("0002");
-            transaccionRequest.setAmount(new BigDecimal(String.valueOf(monto)));
+            transaccionRequest.setSenderAccountNumber(remitente.getAccountNumber());
+            transaccionRequest.setReceiverAccountNumber(receptor.getAccountNumber());
+            transaccionRequest.setAmount(BigDecimal.valueOf(monto));
 
             transaccionResultado = transactionService.transferMoney(transaccionRequest);
         } catch (Exception e) {
@@ -68,10 +71,13 @@ public class TransferenciaSteps {
     @When("{string} intenta transferir {double} a la cuenta inexistente {string}")
     public void ejectuaTransferenciaFallidaMalaCuenta(String nombre, double monto, String malaCuenta) {
         try {
+            Customer remitente = clientes.get(nombre);
+
             transaccionRequest = new TransactionDTO();
-            transaccionRequest.setSenderAccountNumber("0001");
+            transaccionRequest.setSenderAccountNumber(remitente.getAccountNumber());
             transaccionRequest.setReceiverAccountNumber(malaCuenta);
-            transaccionRequest.setAmount(new BigDecimal(String.valueOf(monto)));
+            transaccionRequest.setAmount(BigDecimal.valueOf(monto));
+
             transactionService.transferMoney(transaccionRequest);
         } catch (Exception e) {
             ex = e;
@@ -79,12 +85,16 @@ public class TransferenciaSteps {
     }
 
     @When("{string} intenta transferir {double} a la cuenta de {string}")
-    public void ejectuaTransferenciaFallidaMonto(String c1, double monto, String c2) {
+    public void ejectuaTransferenciaFallidaMonto(String cliente1, double monto, String cliente2) {
         try {
+            Customer remitente = clientes.get(cliente1);
+            Customer receptor = clientes.get(cliente2);
+
             transaccionRequest = new TransactionDTO();
-            transaccionRequest.setSenderAccountNumber("0001");
-            transaccionRequest.setReceiverAccountNumber("0002");
-            transaccionRequest.setAmount(new BigDecimal(String.valueOf(monto)));
+            transaccionRequest.setSenderAccountNumber(remitente.getAccountNumber());
+            transaccionRequest.setReceiverAccountNumber(receptor.getAccountNumber());
+            transaccionRequest.setAmount(BigDecimal.valueOf(monto));
+
             transactionService.transferMoney(transaccionRequest);
         } catch (Exception e) {
             ex = e;
