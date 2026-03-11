@@ -17,4 +17,5 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("SELECT c FROM Customer c WHERE c.accountNumber = :accountNumber")
     Optional<Customer> findByAccountNumberForUpdate(@Param("accountNumber") String accountNumber);
+    Customer findByFirstName(String firstName);
 }
