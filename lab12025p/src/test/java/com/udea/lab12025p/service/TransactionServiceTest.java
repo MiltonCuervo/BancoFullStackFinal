@@ -18,6 +18,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -38,7 +39,7 @@ public class TransactionServiceTest {
 
     @BeforeEach
     void setUp() {
-        // Datos de prueba iniciales (Happy Path Base)
+        // Datos de prueba iniciales
         sender = new Customer();
         sender.setId(1L);
         sender.setAccountNumber("1111");
@@ -98,7 +99,7 @@ public class TransactionServiceTest {
         verify(customerRepository, never()).findByAccountNumberForUpdate(anyString());
     }
 
-    // TEST 4: Cuenta no existe
+    // TEST 4: Cuenta del remitente no existe
     @Test
     void testTransferMoney_AccountNotFound() {
         when(customerRepository.findByAccountNumberForUpdate("1111")).thenReturn(Optional.empty());
@@ -108,6 +109,24 @@ public class TransactionServiceTest {
         });
 
         assertEquals("La cuenta del remitente no existe", exception.getMessage());
+        verify(customerRepository, never()).save(any(Customer.class));
+    }
+
+    // TEST 4B: Cuenta del receptor no existe
+    @Test
+    void testTransferMoney_ReceiverAccountNotFound() {
+        when(customerRepository.findByAccountNumberForUpdate("1111"))
+            .thenReturn(Optional.of(sender));
+        when(customerRepository.findByAccountNumberForUpdate("2222"))
+            .thenReturn(Optional.empty()); // receptor no existe
+
+        IllegalArgumentException exception = assertThrows(
+            IllegalArgumentException.class, () -> {
+                transactionService.transferMoney(requestDTO);
+            }
+        );
+
+        assertEquals("La cuenta del receptor no existe", exception.getMessage());
         verify(customerRepository, never()).save(any(Customer.class));
     }
 
