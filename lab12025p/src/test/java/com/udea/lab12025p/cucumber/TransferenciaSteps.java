@@ -11,6 +11,7 @@ import io.cucumber.java.en.When;
 import io.cucumber.java.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.math.BigDecimal;
 
@@ -20,6 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @SpringBootTest
+@ActiveProfiles("test")
 public class TransferenciaSteps {
 
     @Autowired
