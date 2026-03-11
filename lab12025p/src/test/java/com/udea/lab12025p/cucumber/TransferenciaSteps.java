@@ -114,12 +114,25 @@ public class TransferenciaSteps {
     }
 
     @And("el nuevo saldo de {string} debe ser {double}")
-    public void chequearNuevosSaldos(String x, double d) {
-        // Validacion ignorada para mantener simplicidad UAT
-    }
+        public void chequearNuevosSaldos(String nombre, double saldoEsperado) {
+            Customer cliente = customerRepository.findByFirstName(nombre);
+            
+            assertNotNull(cliente, "No se encontró al cliente: " + nombre);
+        
+            // Usamos compareTo porque con BigDecimal el .equals es muy cansón con los decimales
+            BigDecimal esperado = BigDecimal.valueOf(saldoEsperado);
+            assertEquals(0, esperado.compareTo(cliente.getBalance()), 
+                "El saldo de " + nombre + " no es el esperado. Tiene: " + cliente.getBalance());
+        }
 
     @And("el saldo de {string} permanece en {double}")
-    public void chequearSaldosIntactos(String y, double dy) {
-        // Validacion ignorada
-    }
+        public void chequearSaldosIntactos(String nombre, double saldoEsperado) {
+            Customer cliente = customerRepository.findByFirstName(nombre);
+            
+            assertNotNull(cliente, "No se encontró al cliente: " + nombre);
+
+            BigDecimal esperado = BigDecimal.valueOf(saldoEsperado);
+            assertEquals(0, esperado.compareTo(cliente.getBalance()), 
+                "El saldo de " + nombre + " cambió y debía quedarse quieto.");
+        }
 }
