@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TransactionService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">lab12025p</a> &gt; <a href="index.source.html" class="el_package">com.udea.lab12025p.service</a> &gt; <span class="el_source">TransactionService.java</span></div><h1>TransactionService.java</h1><pre class="source lang-java linenums">package com.udea.lab12025p.service;
+
+import com.udea.lab12025p.DTO.TransactionDTO;
+import com.udea.lab12025p.entity.Customer;
+import com.udea.lab12025p.entity.Transaction;
+import com.udea.lab12025p.mapper.TransactionMapper;
+import com.udea.lab12025p.repository.CustomerRepository;
+import com.udea.lab12025p.repository.TransactionRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+<span class="fc" id="L17">public class TransactionService {</span>
+
+    @Autowired
+    private TransactionRepository transactionRepository;
+
+    @Autowired
+    private CustomerRepository customerRepository;
+
+    @Transactional
+    public TransactionDTO transferMoney(TransactionDTO transactionDTO) {
+        // Validar que los numeros de cuenta no sean nulos
+<span class="pc bpc" id="L28" title="2 of 4 branches missed.">        if (transactionDTO.getSenderAccountNumber() == null || transactionDTO.getReceiverAccountNumber() == null) {</span>
+<span class="nc" id="L29">            throw new IllegalArgumentException(&quot;Los numeros de cuenta del remitente y receptor son obligatorios&quot;);</span>
+        }
+
+        // Validar que el monto sea mayor a cero
+<span class="pc bpc" id="L33" title="1 of 2 branches missed.">        if (transactionDTO.getAmount() == null</span>
+<span class="fc bfc" id="L34" title="All 2 branches covered.">                || transactionDTO.getAmount().compareTo(java.math.BigDecimal.ZERO) &lt;= 0) {</span>
+<span class="fc" id="L35">            throw new IllegalArgumentException(&quot;El monto a transferir debe ser mayor a cero&quot;);</span>
+        }
+
+        // Validar autotransferencia
+<span class="fc bfc" id="L39" title="All 2 branches covered.">        if (transactionDTO.getSenderAccountNumber().equals(transactionDTO.getReceiverAccountNumber())) {</span>
+<span class="fc" id="L40">            throw new IllegalArgumentException(&quot;No puede transferir dinero a su propia cuenta&quot;);</span>
+        }
+
+        // Buscar los clientes por numero de cuenta con bloqueo
+<span class="fc" id="L44">        Customer sender = customerRepository.findByAccountNumberForUpdate(transactionDTO.getSenderAccountNumber())</span>
+<span class="fc" id="L45">                .orElseThrow(() -&gt; new IllegalArgumentException(&quot;La cuenta del remitente no existe&quot;));</span>
+<span class="fc" id="L46">        Customer receiver = customerRepository.findByAccountNumberForUpdate(transactionDTO.getReceiverAccountNumber())</span>
+<span class="fc" id="L47">                .orElseThrow(() -&gt; new IllegalArgumentException(&quot;La cuenta del receptor no existe&quot;));</span>
+        // Validar que el remitente tenga saldo suficiente
+<span class="fc bfc" id="L49" title="All 2 branches covered.">        if (sender.getBalance().compareTo(transactionDTO.getAmount()) &lt; 0) {</span>
+<span class="fc" id="L50">            throw new IllegalArgumentException(&quot;El remitente no tiene saldo suficiente&quot;);</span>
+        }
+        // Realizar la transferencia
+<span class="fc" id="L53">        sender.setBalance(sender.getBalance().subtract(transactionDTO.getAmount()));</span>
+<span class="fc" id="L54">        receiver.setBalance(receiver.getBalance().add(transactionDTO.getAmount()));</span>
+
+        // Guardar los cambios en las cuentas
+<span class="fc" id="L57">        customerRepository.save(sender);</span>
+<span class="fc" id="L58">        customerRepository.save(receiver);</span>
+
+        // Crear y guardar la transaccion
+<span class="fc" id="L61">        Transaction transaction = new Transaction();</span>
+<span class="fc" id="L62">        transaction.setSenderAccountNumber(sender.getAccountNumber());</span>
+<span class="fc" id="L63">        transaction.setReceiverAccountNumber(receiver.getAccountNumber());</span>
+<span class="fc" id="L64">        transaction.setAmount(transactionDTO.getAmount());</span>
+
+<span class="fc" id="L66">        transaction = transactionRepository.save(transaction);</span>
+
+        // Devolver la transaccion creada como DTO
+<span class="fc" id="L69">        TransactionDTO savedTransaction = new TransactionDTO();</span>
+<span class="fc" id="L70">        savedTransaction.setId(transaction.getId());</span>
+<span class="fc" id="L71">        savedTransaction.setSenderAccountNumber(transaction.getSenderAccountNumber());</span>
+<span class="fc" id="L72">        savedTransaction.setReceiverAccountNumber(transaction.getReceiverAccountNumber());</span>
+<span class="fc" id="L73">        savedTransaction.setAmount(transaction.getAmount());</span>
+<span class="fc" id="L74">        savedTransaction.setTransactionDate(transaction.getTransactionDate());</span>
+
+<span class="fc" id="L76">        return savedTransaction;</span>
+    }
+
+    public List&lt;TransactionDTO&gt; getTransactionsForAccount(String accountNumber) {
+<span class="nc" id="L80">        List&lt;Transaction&gt; transactions = transactionRepository</span>
+<span class="nc" id="L81">                .findBySenderAccountNumberOrReceiverAccountNumber(accountNumber, accountNumber);</span>
+<span class="nc" id="L82">        return transactions.stream().map(transaction -&gt; {</span>
+<span class="nc" id="L83">            TransactionDTO dto = new TransactionDTO();</span>
+<span class="nc" id="L84">            dto.setId(transaction.getId());</span>
+<span class="nc" id="L85">            dto.setSenderAccountNumber(transaction.getSenderAccountNumber());</span>
+<span class="nc" id="L86">            dto.setReceiverAccountNumber(transaction.getReceiverAccountNumber());</span>
+<span class="nc" id="L87">            dto.setAmount(transaction.getAmount());</span>
+<span class="nc" id="L88">            dto.setTransactionDate(transaction.getTransactionDate());</span>
+<span class="nc" id="L89">            return dto;</span>
+<span class="nc" id="L90">        }).collect(Collectors.toList());</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

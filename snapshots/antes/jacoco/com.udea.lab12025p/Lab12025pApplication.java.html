@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Lab12025pApplication.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">lab12025p</a> &gt; <a href="index.source.html" class="el_package">com.udea.lab12025p</a> &gt; <span class="el_source">Lab12025pApplication.java</span></div><h1>Lab12025pApplication.java</h1><pre class="source lang-java linenums">package com.udea.lab12025p;
+
+import com.udea.lab12025p.entity.Customer;
+import com.udea.lab12025p.repository.CustomerRepository;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+
+import java.math.BigDecimal;
+
+@SpringBootApplication
+<span class="fc" id="L13">public class Lab12025pApplication {</span>
+
+	public static void main(String[] args) {
+<span class="nc" id="L16">		SpringApplication.run(Lab12025pApplication.class, args);</span>
+<span class="nc" id="L17">	}</span>
+
+	@Bean
+	public CommandLineRunner setupData(CustomerRepository customerRepository) {
+<span class="fc" id="L21">		return args -&gt; {</span>
+			// Crear cliente 1 si no existe
+<span class="pc bpc" id="L23" title="1 of 2 branches missed.">			if (customerRepository.findByAccountNumber(&quot;0001&quot;).isEmpty()) {</span>
+<span class="fc" id="L24">				Customer c1 = new Customer();</span>
+<span class="fc" id="L25">				c1.setFirstName(&quot;Homero&quot;);</span>
+<span class="fc" id="L26">				c1.setLastName(&quot;Simpson&quot;);</span>
+<span class="fc" id="L27">				c1.setAccountNumber(&quot;0001&quot;);</span>
+<span class="fc" id="L28">				c1.setBalance(new BigDecimal(&quot;1000.00&quot;));</span>
+<span class="fc" id="L29">				customerRepository.save(c1);</span>
+			}
+
+			// Crear cliente 2 si no existe
+<span class="pc bpc" id="L33" title="1 of 2 branches missed.">			if (customerRepository.findByAccountNumber(&quot;0002&quot;).isEmpty()) {</span>
+<span class="fc" id="L34">				Customer c2 = new Customer();</span>
+<span class="fc" id="L35">				c2.setFirstName(&quot;Ned&quot;);</span>
+<span class="fc" id="L36">				c2.setLastName(&quot;Flanders&quot;);</span>
+<span class="fc" id="L37">				c2.setAccountNumber(&quot;0002&quot;);</span>
+<span class="fc" id="L38">				c2.setBalance(new BigDecimal(&quot;500.00&quot;));</span>
+<span class="fc" id="L39">				customerRepository.save(c2);</span>
+			}
+<span class="fc" id="L41">		};</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

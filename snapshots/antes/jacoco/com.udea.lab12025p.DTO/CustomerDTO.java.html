@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CustomerDTO.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">lab12025p</a> &gt; <a href="index.source.html" class="el_package">com.udea.lab12025p.DTO</a> &gt; <span class="el_source">CustomerDTO.java</span></div><h1>CustomerDTO.java</h1><pre class="source lang-java linenums">package com.udea.lab12025p.DTO;
+
+import java.math.BigDecimal;
+
+public class CustomerDTO {
+
+    private Long id;
+    private String firstName;
+    private String lastName;
+    private String accountNumber;
+    private BigDecimal balance;
+
+<span class="fc" id="L13">    public CustomerDTO() {</span>
+<span class="fc" id="L14">    }</span>
+
+<span class="nc" id="L16">    public CustomerDTO(Long id, String firstName, String lastName, String accountNumber, BigDecimal balance) {</span>
+<span class="nc" id="L17">        this.id = id;</span>
+<span class="nc" id="L18">        this.firstName = firstName;</span>
+<span class="nc" id="L19">        this.lastName = lastName;</span>
+<span class="nc" id="L20">        this.accountNumber = accountNumber;</span>
+<span class="nc" id="L21">        this.balance = balance;</span>
+<span class="nc" id="L22">    }</span>
+
+    public Long getId() {
+<span class="fc" id="L25">        return id;</span>
+    }
+
+    public void setId(Long id) {
+<span class="fc" id="L29">        this.id = id;</span>
+<span class="fc" id="L30">    }</span>
+
+    public String getFirstName() {
+<span class="fc" id="L33">        return firstName;</span>
+    }
+
+    public void setFirstName(String firstName) {
+<span class="fc" id="L37">        this.firstName = firstName;</span>
+<span class="fc" id="L38">    }</span>
+
+    public String getLastName() {
+<span class="fc" id="L41">        return lastName;</span>
+    }
+
+    public void setLastName(String lastName) {
+<span class="fc" id="L45">        this.lastName = lastName;</span>
+<span class="fc" id="L46">    }</span>
+
+    public String getAccountNumber() {
+<span class="fc" id="L49">        return accountNumber;</span>
+    }
+
+    public void setAccountNumber(String accountNumber) {
+<span class="fc" id="L53">        this.accountNumber = accountNumber;</span>
+<span class="fc" id="L54">    }</span>
+
+    public BigDecimal getBalance() {
+<span class="fc" id="L57">        return balance;</span>
+    }
+
+    public void setBalance(BigDecimal balance) {
+<span class="fc" id="L61">        this.balance = balance;</span>
+<span class="fc" id="L62">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

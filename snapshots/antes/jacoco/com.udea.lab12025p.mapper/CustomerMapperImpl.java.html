@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CustomerMapperImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">lab12025p</a> &gt; <a href="index.source.html" class="el_package">com.udea.lab12025p.mapper</a> &gt; <span class="el_source">CustomerMapperImpl.java</span></div><h1>CustomerMapperImpl.java</h1><pre class="source lang-java linenums">package com.udea.lab12025p.mapper;
+
+import com.udea.lab12025p.DTO.CustomerDTO;
+import com.udea.lab12025p.entity.Customer;
+import javax.annotation.processing.Generated;
+import org.springframework.stereotype.Component;
+
+@Generated(
+    value = &quot;org.mapstruct.ap.MappingProcessor&quot;,
+    date = &quot;2026-04-28T22:18:18-0500&quot;,
+    comments = &quot;version: 1.5.5.Final, compiler: javac, environment: Java 17.0.16 (Oracle Corporation)&quot;
+)
+@Component
+<span class="fc" id="L14">public class CustomerMapperImpl implements CustomerMapper {</span>
+
+    @Override
+    public CustomerDTO toDTO(Customer customer) {
+<span class="nc bnc" id="L18" title="All 2 branches missed.">        if ( customer == null ) {</span>
+<span class="nc" id="L19">            return null;</span>
+        }
+
+<span class="nc" id="L22">        CustomerDTO customerDTO = new CustomerDTO();</span>
+
+<span class="nc" id="L24">        customerDTO.setId( customer.getId() );</span>
+<span class="nc" id="L25">        customerDTO.setFirstName( customer.getFirstName() );</span>
+<span class="nc" id="L26">        customerDTO.setLastName( customer.getLastName() );</span>
+<span class="nc" id="L27">        customerDTO.setAccountNumber( customer.getAccountNumber() );</span>
+<span class="nc" id="L28">        customerDTO.setBalance( customer.getBalance() );</span>
+
+<span class="nc" id="L30">        return customerDTO;</span>
+    }
+
+    @Override
+    public Customer toEntity(CustomerDTO customerDTO) {
+<span class="nc bnc" id="L35" title="All 2 branches missed.">        if ( customerDTO == null ) {</span>
+<span class="nc" id="L36">            return null;</span>
+        }
+
+<span class="nc" id="L39">        Customer customer = new Customer();</span>
+
+<span class="nc" id="L41">        customer.setId( customerDTO.getId() );</span>
+<span class="nc" id="L42">        customer.setAccountNumber( customerDTO.getAccountNumber() );</span>
+<span class="nc" id="L43">        customer.setFirstName( customerDTO.getFirstName() );</span>
+<span class="nc" id="L44">        customer.setLastName( customerDTO.getLastName() );</span>
+<span class="nc" id="L45">        customer.setBalance( customerDTO.getBalance() );</span>
+
+<span class="nc" id="L47">        return customer;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>
