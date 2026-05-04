@@ -7,7 +7,6 @@ package com.udea.lab12025p.controller;
 
 import com.udea.lab12025p.DTO.TransactionDTO;
 import com.udea.lab12025p.service.TransactionService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,8 +17,12 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 public class TransactionController {
 
-    @Autowired
-    private TransactionService transactionService;
+    private final TransactionService transactionService;
+
+    // Constructor Injection Replaced Field Injection
+    public TransactionController(TransactionService transactionService) {
+        this.transactionService = transactionService;
+    }
 
     @PostMapping
     public ResponseEntity<?> transferMoney(@RequestBody TransactionDTO transactionDTO) {
