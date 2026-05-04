@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TransactionController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">lab12025p</a> &gt; <a href="index.source.html" class="el_package">com.udea.lab12025p.controller</a> &gt; <span class="el_source">TransactionController.java</span></div><h1>TransactionController.java</h1><pre class="source lang-java linenums">package com.udea.lab12025p.controller;
+
+/**
+ * Controlador REST para gestionar transacciones financieras.
+ * Proporciona endpoints para transferencias de dinero y consulta de transacciones de un usuario.
+ */
+
+import com.udea.lab12025p.DTO.TransactionDTO;
+import com.udea.lab12025p.service.TransactionService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
+
+@RestController
+@RequestMapping(value = &quot;/api/transactions&quot;, produces = &quot;application/json&quot;)
+@CrossOrigin(origins = &quot;http://localhost:3000&quot;)
+<span class="fc" id="L20">public class TransactionController {</span>
+
+    @Autowired
+    private TransactionService transactionService;
+
+    @PostMapping
+    public ResponseEntity&lt;?&gt; transferMoney(@RequestBody TransactionDTO transactionDTO) {
+        try {
+<span class="fc" id="L28">            TransactionDTO savedTransaction = transactionService.transferMoney(transactionDTO);</span>
+<span class="fc" id="L29">            return ResponseEntity.ok(savedTransaction);</span>
+<span class="fc" id="L30">        } catch (IllegalArgumentException e) {</span>
+<span class="fc" id="L31">            return ResponseEntity.badRequest().body(e.getMessage());</span>
+        }
+    }
+
+    @GetMapping(&quot;/{accountNumber}&quot;)
+    public List&lt;TransactionDTO&gt; getTransactionsByAccount(@PathVariable String accountNumber) {
+<span class="fc" id="L37">        return transactionService.getTransactionsForAccount(accountNumber);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

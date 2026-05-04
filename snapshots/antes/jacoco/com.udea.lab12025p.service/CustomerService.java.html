@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CustomerService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">lab12025p</a> &gt; <a href="index.source.html" class="el_package">com.udea.lab12025p.service</a> &gt; <span class="el_source">CustomerService.java</span></div><h1>CustomerService.java</h1><pre class="source lang-java linenums">package com.udea.lab12025p.service;
+
+import com.udea.lab12025p.DTO.CustomerDTO;
+import com.udea.lab12025p.entity.Customer;
+import com.udea.lab12025p.mapper.CustomerMapper;
+import com.udea.lab12025p.repository.CustomerRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class CustomerService {
+    private final CustomerRepository customerRepository;
+    private final CustomerMapper customerMapper;
+
+    @Autowired
+<span class="fc" id="L18">    public CustomerService(CustomerRepository customerRepository, CustomerMapper customerMapper) {</span>
+<span class="fc" id="L19">        this.customerRepository = customerRepository;</span>
+<span class="fc" id="L20">        this.customerMapper = customerMapper;</span>
+<span class="fc" id="L21">    }</span>
+
+    //Obtener la informacion de todos los clientes
+    public List&lt;CustomerDTO&gt; getAllCustomers() {
+<span class="fc" id="L25">        return customerRepository.findAll().stream()</span>
+<span class="fc" id="L26">                .map(customerMapper::toDTO).toList();</span>
+    }
+
+    //Obtener el dato de un cliente por un ID
+    public CustomerDTO getCustomerById(Long id) {
+<span class="fc" id="L31">        return customerRepository.findById(id).map(customerMapper::toDTO)</span>
+<span class="fc" id="L32">                .orElseThrow(() -&gt; new RuntimeException(&quot;Cliente no encontrado&quot;));</span>
+    }
+
+    //Crear un nuevo cliente
+    public CustomerDTO createCustomer(CustomerDTO customerDTO) {
+<span class="fc" id="L37">        Customer customer = customerMapper.toEntity(customerDTO);</span>
+<span class="fc" id="L38">        return customerMapper.toDTO(customerRepository.save(customer));</span>
+    }
+
+    //Actualiza la información de un cliente existente.
+
+    public CustomerDTO updateCustomer(Long id, CustomerDTO customerDTO) {
+        // 1. Buscar el cliente en la base de datos por su ID.
+<span class="fc" id="L45">        Customer customerToUpdate = customerRepository.findById(id)</span>
+<span class="fc" id="L46">                .orElseThrow(() -&gt; new IllegalArgumentException(&quot;Cliente no encontrado con ID: &quot; + id));</span>
+
+        // 2. Actualizar los campos del cliente con los datos del DTO.
+<span class="fc" id="L49">        customerToUpdate.setFirstName(customerDTO.getFirstName());</span>
+<span class="fc" id="L50">        customerToUpdate.setLastName(customerDTO.getLastName());</span>
+
+        // 3. Guardar el cliente actualizado en la base de datos.
+<span class="fc" id="L53">        Customer updatedCustomer = customerRepository.save(customerToUpdate);</span>
+
+        // 4. Convertir la entidad actualizada a DTO y devolverla.
+<span class="fc" id="L56">        return customerMapper.toDTO(updatedCustomer);</span>
+    }
+
+    //Borra un cliente de la base de datos.
+
+    public void deleteCustomer(Long id) {
+        // 1. Verificar si el cliente existe antes de intentar borrarlo.
+<span class="fc bfc" id="L63" title="All 2 branches covered.">        if (!customerRepository.existsById(id)) {</span>
+<span class="fc" id="L64">            throw new IllegalArgumentException(&quot;Cliente no encontrado con ID: &quot; + id);</span>
+        }
+        // 2. Borrar el cliente.
+<span class="fc" id="L67">        customerRepository.deleteById(id);</span>
+<span class="fc" id="L68">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>
