@@ -1,7 +1,7 @@
 package com.udea.lab12025p.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.udea.lab12025p.DTO.CustomerDTO;
+import com.udea.lab12025p.dto.CustomerDTO;
 import com.udea.lab12025p.service.CustomerService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
