@@ -22,7 +22,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class TransactionServiceTest {
+class TransactionServiceTest {
 
     @Mock
     private TransactionRepository transactionRepository;
@@ -116,15 +116,14 @@ public class TransactionServiceTest {
     @Test
     void testTransferMoney_ReceiverAccountNotFound() {
         when(customerRepository.findByAccountNumberForUpdate("1111"))
-            .thenReturn(Optional.of(sender));
+                .thenReturn(Optional.of(sender));
         when(customerRepository.findByAccountNumberForUpdate("2222"))
-            .thenReturn(Optional.empty()); // receptor no existe
+                .thenReturn(Optional.empty()); // receptor no existe
 
         IllegalArgumentException exception = assertThrows(
-            IllegalArgumentException.class, () -> {
-                transactionService.transferMoney(requestDTO);
-            }
-        );
+                IllegalArgumentException.class, () -> {
+                    transactionService.transferMoney(requestDTO);
+                });
 
         assertEquals("La cuenta del receptor no existe", exception.getMessage());
         verify(customerRepository, never()).save(any(Customer.class));
