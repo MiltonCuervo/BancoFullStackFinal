@@ -1,4 +1,4 @@
-package com.udea.lab12025p.DTO;
+package com.udea.lab12025p.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 

@@ -1,6 +1,6 @@
 package com.udea.lab12025p.service;
 
-import com.udea.lab12025p.DTO.TransactionDTO;
+import com.udea.lab12025p.dto.TransactionDTO;
 import com.udea.lab12025p.entity.Customer;
 import com.udea.lab12025p.entity.Transaction;
 import com.udea.lab12025p.repository.CustomerRepository;
@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class TransactionService {
@@ -88,6 +87,6 @@ public class TransactionService {
             dto.setAmount(transaction.getAmount());
             dto.setTransactionDate(transaction.getTransactionDate());
             return dto;
-        }).collect(Collectors.toList());
+        }).toList();
     }
 }
