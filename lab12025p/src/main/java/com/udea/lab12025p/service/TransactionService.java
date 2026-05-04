@@ -5,21 +5,22 @@ import com.udea.lab12025p.entity.Customer;
 import com.udea.lab12025p.entity.Transaction;
 import com.udea.lab12025p.repository.CustomerRepository;
 import com.udea.lab12025p.repository.TransactionRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class TransactionService {
 
-    @Autowired
-    private TransactionRepository transactionRepository;
+    private final TransactionRepository transactionRepository;
+    private final CustomerRepository customerRepository;
 
-    @Autowired
-    private CustomerRepository customerRepository;
+    // Constructor Injection Replaced Field Injection
+    public TransactionService(TransactionRepository transactionRepository, CustomerRepository customerRepository) {
+        this.transactionRepository = transactionRepository;
+        this.customerRepository = customerRepository;
+    }
 
     @Transactional
     public TransactionDTO transferMoney(TransactionDTO transactionDTO) {
@@ -86,6 +87,6 @@ public class TransactionService {
             dto.setAmount(transaction.getAmount());
             dto.setTransactionDate(transaction.getTransactionDate());
             return dto;
-        }).collect(Collectors.toList());
+        }).toList();
     }
 }
