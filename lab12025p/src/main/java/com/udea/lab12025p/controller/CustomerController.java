@@ -1,6 +1,6 @@
 package com.udea.lab12025p.controller;
 
-import com.udea.lab12025p.DTO.CustomerDTO;
+import com.udea.lab12025p.dto.CustomerDTO;
 import com.udea.lab12025p.service.CustomerService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

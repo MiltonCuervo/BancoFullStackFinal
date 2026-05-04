@@ -1,7 +1,7 @@
 package com.udea.lab12025p.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.udea.lab12025p.DTO.TransactionDTO;
+import com.udea.lab12025p.dto.TransactionDTO;
 import com.udea.lab12025p.entity.Customer;
 import com.udea.lab12025p.repository.CustomerRepository;
 import com.udea.lab12025p.repository.TransactionRepository;
@@ -28,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-public class TransactionControllerIntegrationTest {
+class TransactionControllerIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;
