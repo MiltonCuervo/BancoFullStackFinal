@@ -1,6 +1,6 @@
 package com.udea.lab12025p.service;
 
-import com.udea.lab12025p.DTO.CustomerDTO;
+import com.udea.lab12025p.dto.CustomerDTO;
 import com.udea.lab12025p.entity.Customer;
 import com.udea.lab12025p.mapper.CustomerMapper;
 import com.udea.lab12025p.repository.CustomerRepository;
