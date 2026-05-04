@@ -1,11 +1,6 @@
 package com.udea.lab12025p.controller;
 
-/**
- * Controlador REST para gestionar transacciones financieras.
- * Proporciona endpoints para transferencias de dinero y consulta de transacciones de un usuario.
- */
-
-import com.udea.lab12025p.DTO.TransactionDTO;
+import com.udea.lab12025p.dto.TransactionDTO;
 import com.udea.lab12025p.service.TransactionService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
