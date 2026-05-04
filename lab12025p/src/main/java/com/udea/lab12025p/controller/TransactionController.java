@@ -25,12 +25,12 @@ public class TransactionController {
     }
 
     @PostMapping
-    public ResponseEntity<?> transferMoney(@RequestBody TransactionDTO transactionDTO) {
+    public ResponseEntity<TransactionDTO> transferMoney(@RequestBody TransactionDTO transactionDTO) {
         try {
             TransactionDTO savedTransaction = transactionService.transferMoney(transactionDTO);
             return ResponseEntity.ok(savedTransaction);
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.badRequest().build();
         }
     }
 
