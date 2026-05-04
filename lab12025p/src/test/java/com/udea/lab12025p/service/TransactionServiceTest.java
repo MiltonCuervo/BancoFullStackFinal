@@ -155,4 +155,53 @@ class TransactionServiceTest {
         verify(customerRepository, times(2)).save(any(Customer.class));
         verify(transactionRepository, times(1)).save(any(Transaction.class));
     }
+
+    // TEST 6: Cuentas Nulas (Pruebas nuevas para aumentar cobertura)
+    @Test
+    void testTransferMoney_NullAccounts() {
+        requestDTO.setSenderAccountNumber(null);
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            transactionService.transferMoney(requestDTO);
+        });
+
+        assertEquals("Los numeros de cuenta del remitente y receptor son obligatorios", exception.getMessage());
+        verify(customerRepository, never()).findByAccountNumberForUpdate(anyString());
+    }
+
+    // TEST 7: Monto Nulo (Faltaba esta cobertura)
+    @Test
+    void testTransferMoney_NullAmount() {
+        requestDTO.setAmount(null);
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            transactionService.transferMoney(requestDTO);
+        });
+
+        assertEquals("El monto a transferir debe ser mayor a cero", exception.getMessage());
+    }
+
+    // TEST 8: Obtener transacciones por cuenta
+    @Test
+    void testGetTransactionsForAccount_Success() {
+        // 1. Preparamos el escenario
+        Transaction mockTransaction = new Transaction();
+        mockTransaction.setId(1L);
+        mockTransaction.setSenderAccountNumber("1111");
+        mockTransaction.setReceiverAccountNumber("2222");
+        mockTransaction.setAmount(new BigDecimal("100.00"));
+
+        when(transactionRepository.findBySenderAccountNumberOrReceiverAccountNumber("1111", "1111"))
+                .thenReturn(java.util.List.of(mockTransaction));
+
+        // 2. Ejecutamos el método
+        java.util.List<TransactionDTO> result = transactionService.getTransactionsForAccount("1111");
+
+        // 3. Verificamos los resultados
+        assertFalse(result.isEmpty());
+        assertEquals(1, result.size());
+        assertEquals(1L, result.get(0).getId());
+        assertEquals("1111", result.get(0).getSenderAccountNumber());
+    }
+
 }
