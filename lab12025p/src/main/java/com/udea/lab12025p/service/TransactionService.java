@@ -41,10 +41,10 @@ public class TransactionService {
 
     private void validateTransactionRequest(TransactionDTO dto) {
         if (dto.getSenderAccountNumber() == null || dto.getReceiverAccountNumber() == null) {
-            throw new IllegalArgumentException("Los numeros de cuenta son obligatorios");
+            throw new IllegalArgumentException("Los numeros de cuenta del remitente y receptor son obligatorios");
         }
         if (dto.getAmount() == null || dto.getAmount().compareTo(java.math.BigDecimal.ZERO) <= 0) {
-            throw new IllegalArgumentException("El monto debe ser mayor a cero");
+            throw new IllegalArgumentException("El monto a transferir debe ser mayor a cero");
         }
         if (dto.getSenderAccountNumber().equals(dto.getReceiverAccountNumber())) {
             throw new IllegalArgumentException("No puede transferir dinero a su propia cuenta");
